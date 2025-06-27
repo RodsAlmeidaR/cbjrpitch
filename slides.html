@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Presentation: Charlie Brown Jr. - Underground</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #4a4a4a;
+            background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+            color: #F9FAFB;
+            overflow: hidden; 
+        }
+        
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            max-width: 1100px; 
+            aspect-ratio: 16 / 9; 
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            border-radius: 0.5rem;
+            filter: grayscale(80%) contrast(1.1); 
+            z-index: 1;
+        }
+
+        .text-content {
+            background-color: rgba(17, 24, 39, 0.75);
+            padding: 1.5rem;
+            border-radius: 0.25rem;
+            z-index: 2;
+            position: relative;
+            text-align: center;
+            border: 2px solid #F87171; 
+            transform: rotate(-2deg); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        
+        .slide-title {
+            font-family: 'Permanent Marker', cursive;
+            font-size: clamp(2.5rem, 5vw, 4rem); 
+            color: #F9FAFB;
+            text-shadow: 2px 2px 4px #000;
+            margin-bottom: 0.5rem;
+        }
+        
+        .slide-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem); 
+            color: #D1D5DB;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-list {
+            list-style: none; 
+            padding: 0;
+            text-align: center;
+        }
+        
+        .slide-list li {
+            margin-bottom: 0.5rem;
+            background-color: #F87171; 
+            color: #111827; 
+            padding: 0.25rem 0.75rem;
+            display: inline-block;
+            margin-right: 0.5rem;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem); 
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.5rem;
+            z-index: 10;
+        }
+
+        .nav-button {
+            font-family: 'Permanent Marker', cursive;
+            background-color: #F87171;
+            color: #111827;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            margin: 0 1rem;
+            transition: all 0.2s;
+            border: 2px solid black;
+            font-size: 1.25rem;
+        }
+
+        .nav-button:hover {
+            background-color: #FBBF24; /* Amarelo no hover */
+            transform: scale(1.05);
+        }
+
+        .slide-counter {
+            font-size: 1.5rem;
+            color: #F9FAFB;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+
+    </div>
+
+    <script>
+        const slides = [
+            {
+                title: "Charlie Brown Jr.",
+                subtitle: "The Voice of Young People in Brazil",
+                points: [],
+                imageUrl: "./img/cbjrlogo.png"
+            },
+            {
+                title: "Who Was CBJR?",
+                subtitle: "",
+                points: ["Band from Santos", "Singer Chorão", "Popular with teens"],
+                imageUrl: "./img/banda.jpg"
+            },
+            {
+                title: "Their Music",
+                subtitle: "The lyrics were everything.",
+                points: ["Rock", "Rap", "Skate Punk"],
+                imageUrl: "./img/bigcry.png"
+            },
+            {
+                title: "The Songs",
+                subtitle: "About real life for teens:",
+                points: ["Social Problems", "Daily Life", "Love", "Skateboarding"],
+                imageUrl: "./img/skatepark.jpg"
+            },
+            {
+                title: "More Than a Band",
+                subtitle: "",
+                points: ["Symbol for being different", "Fight for your dreams", "A community"],
+                imageUrl: "./img/show.jpeg"
+            },
+            {
+                title: "Still Important",
+                subtitle: "",
+                points: ["Part of culture", "Changed a generation", "Music lives on"],
+                imageUrl: "./img/grafite.png"
+            }
+        ];
+
+        let currentSlideIndex = 0;
+        const presentationContainer = document.getElementById('presentation-container');
+
+        function renderSlide() {
+            const slideData = slides[currentSlideIndex];
+            
+            const pointsHTML = slideData.points.map(point => `<li>${point}</li>`).join('');
+            
+            presentationContainer.innerHTML = `
+                <div class="slide-container">
+                    <div class="slide">
+                        <img src="${slideData.imageUrl}" onerror="this.onerror=null;this.src='https://placehold.co/900x500/111827/FFFFFF?text=Image+Not+Found';" alt="Imagem de fundo do slide" class="slide-image">
+                        <div class="text-content">
+                            <h1 class="slide-title">${slideData.title}</h1>
+                            ${slideData.subtitle ? `<h2 class="slide-subtitle">${slideData.subtitle}</h2>` : ''}
+                            ${pointsHTML ? `<ul class="slide-list">${pointsHTML}</ul>` : ''}
+                        </div>
+                    </div>
+                    <div class="navigation">
+                        <button id="prevBtn" class="nav-button">Prev</button>
+                        <span class="slide-counter">${currentSlideIndex + 1} / ${slides.length}</span>
+                        <button id="nextBtn" class="nav-button">Next</button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('prevBtn').addEventListener('click', showPreviousSlide);
+            document.getElementById('nextBtn').addEventListener('click', showNextSlide);
+            updateButtonState();
+        }
+
+        function showPreviousSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                renderSlide();
+            }
+        }
+
+        function showNextSlide() {
+            if (currentSlideIndex < slides.length - 1) {
+                currentSlideIndex++;
+                renderSlide();
+            }
+        }
+        
+        function updateButtonState() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.disabled = currentSlideIndex === slides.length - 1;
+
+            prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+            prevBtn.style.cursor = prevBtn.disabled ? 'not-allowed' : 'pointer';
+            
+            nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+            nextBtn.style.cursor = nextBtn.disabled ? 'not-allowed' : 'pointer';
+        }
+
+        renderSlide();
+    </script>
+
+</body>
+</html>
